@@ -3,7 +3,7 @@
 <script>
 	if(typeof(EventSource) !== "undefined") {
 	    // Yes! Server-sent events support!
-		var source = new EventSource("demo_sse.php");
+		var source = new EventSource("HelloWorld");
 		source.onmessage = function(event) {
 			document.getElementById("result").innerHTML += event.data + "<br>";
 		};
