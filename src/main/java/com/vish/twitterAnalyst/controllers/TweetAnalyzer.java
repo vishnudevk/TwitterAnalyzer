@@ -2,8 +2,8 @@ package com.vish.twitterAnalyst.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,7 +18,7 @@ import com.vish.twitterAnalyst.model.Tweet;
 @Controller
 public class TweetAnalyzer {
 
-	private static List<Tweet> tweetList = new ArrayList<Tweet>();
+	private static List<Tweet> tweetList =  new Vector<Tweet>();
 	
 	@RequestMapping(value="/tweetList.get")
 	public void getTweetList(HttpServletResponse response) throws IOException {
@@ -28,10 +28,23 @@ public class TweetAnalyzer {
 		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter writer = response.getWriter();
-		if(tweetList.size()>0){
-			writer.write("data: " + tweetList.get(tweetList.size()-1) + "\n\n");
+		
+		int previousSize = 0;
+		try {
+			while(true){
+				if(tweetList.size()>previousSize){
+					for(int i = previousSize;i<tweetList.size();i++){
+						writer.write("data: " + tweetList.get(i) + "\n\n");
+						writer.flush();
+					}
+					previousSize = tweetList.size();
+				}
+				Thread.sleep(2000);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			writer.close();
 		}
-		writer.close();
 	}
 	
 	@PostConstruct
@@ -41,7 +54,7 @@ public class TweetAnalyzer {
 	
 	@PreDestroy
 	public void destroy(){
-		tweetList = new ArrayList<Tweet>();
+		tweetList = new Vector<Tweet>();
 	}
 
 }

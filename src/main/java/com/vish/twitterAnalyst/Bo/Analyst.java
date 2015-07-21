@@ -1,8 +1,8 @@
 package com.vish.twitterAnalyst.Bo;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import com.vish.twitterAnalyst.model.Tweet;
 import com.vish.twitterAnalyst.model.User;
@@ -20,7 +20,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class Analyst {
 
 	public static void main(String[] args) throws TwitterException, IOException {
-		List<Tweet> tweetList = new ArrayList<Tweet>();
+		List<Tweet> tweetList = new Vector<Tweet>();
 		retriveTweets(tweetList);
 	}
 	
@@ -39,11 +39,13 @@ public class Analyst {
 		StatusListener listener = new StatusListener() {
 			public void onStatus(Status status) {
 				double sentiment = 0;
-				/*try {
+				
+				//comment the below try catch to disable fetching of sentiments
+				try {
 					sentiment = Alchemist.getSentimance(status.getText());
 				} catch (IOException e) {
 					e.printStackTrace();
-				}*/
+				}
 				
 				//	tweets.add(status);
 				Tweet tweet = new Tweet();
@@ -51,7 +53,7 @@ public class Analyst {
 				
 				user.setName(status.getUser().getName());
 				user.setScreenName(status.getUser().getScreenName());
-				user.setProfileImageUrl(status.getUser().getProfileBackgroundImageURL());
+				user.setProfileImageUrl(status.getUser().getProfileImageURL());
 				
 				tweet.setId(status.getId());
 				tweet.setUser(user);
