@@ -1,5 +1,7 @@
 package com.vish.twitterAnalyst.model;
 
+import java.util.Date;
+
 import com.google.gson.Gson;
 
 public class Tweet {
@@ -10,6 +12,7 @@ public class Tweet {
 	private long id;
 	private User user;
 	private double sentiment; 
+	private Date createdAt;
 	
 	public String getCreatedate() {
 		return createdate;
@@ -49,12 +52,18 @@ public class Tweet {
 		this.sentiment = sentiment;
 	}
 	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 	@Override
 	public String toString() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
 	}
-	
 	
 	/*The following fields can be added for future enhancement
 	 *  lang = 'en',

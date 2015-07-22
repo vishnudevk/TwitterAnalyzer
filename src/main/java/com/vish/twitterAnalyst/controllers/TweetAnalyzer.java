@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
 import com.vish.twitterAnalyst.Bo.Analyst;
 import com.vish.twitterAnalyst.model.Tweet;
 
@@ -20,8 +21,8 @@ public class TweetAnalyzer {
 
 	private static List<Tweet> tweetList =  new Vector<Tweet>();
 	
-	@RequestMapping(value="/tweetList.get")
-	public void getTweetList(HttpServletResponse response) throws IOException {
+	@RequestMapping(value="/tweetSteam.get")
+	public void getTweetStream(HttpServletResponse response) throws IOException {
 		response.setContentType("text/event-stream");
 
 		// encoding must be set to UTF-8
@@ -45,6 +46,23 @@ public class TweetAnalyzer {
 			e.printStackTrace();
 			writer.close();
 		}
+	}
+	
+	/**
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/tweetList.get")
+	public void getTweetList(HttpServletResponse response) throws IOException {
+		response.setContentType("application/json");
+		// encoding must be set to UTF-8
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter writer = response.getWriter();
+		Gson gson = new Gson();
+		writer.write( gson.toJson(tweetList));
+		writer.flush();
+		writer.close();
 	}
 	
 	@PostConstruct

@@ -47,6 +47,12 @@ public class Analyst {
 					e.printStackTrace();
 				}*/
 				
+				//for the time being show random sentiments -1 to 1
+				//should be commented out
+				if(sentiment==0){
+					sentiment = 1-(Math.random()*2);
+				}
+				
 				//	tweets.add(status);
 				Tweet tweet = new Tweet();
 				User user = new User();
@@ -59,6 +65,7 @@ public class Analyst {
 				tweet.setUser(user);
 				tweet.setText(status.getText());
 				tweet.setSentiment(sentiment);
+				tweet.setCreatedAt(status.getCreatedAt());
 				
 				tweets.add(tweet);
 				

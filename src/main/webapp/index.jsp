@@ -2,7 +2,6 @@
 <head>
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="css/angular-chart.css" media="screen,projection" />
 <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
 <!-- Icon font -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -33,7 +32,7 @@
 	<div>
 		<ul  class="collection">
 			<!-- {{ tweet.id + ', ' + tweet.text }} {{tweet.id}} -->
-			<li ng-repeat="tweet in tweets" class="collection-item avatar animate-repeat">
+			<li ng-repeat="tweet in tweets" ng-animate= ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" class="collection-item avatar">
 				<div class="sentimentMarker {{tweet.colorClass}}"></div>
 				<img src="{{tweet.user.profileImageUrl}}" alt="" class="circle"> 
 				<span class="title">{{tweet.user.name}}</span>
@@ -51,8 +50,6 @@
 <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="js/materialize.js"></script>
 <script type="text/javascript" src="js/angular.js"></script>
-<script type="text/javascript" src="js/Chart.js"></script>
-<script type="text/javascript" src="js/angular-chart.js"></script>
  
 <script>
 	
@@ -65,7 +62,7 @@
 	    
 	    if (typeof (EventSource) !== "undefined") {
 			// Yes! Server-sent events support!
-			var source = new EventSource("tweetList.get");
+			var source = new EventSource("tweetSteam.get");
 			source.onmessage = function(event) {
 			//	document.getElementById("result").innerHTML += event.data + "<br>";
 				var tweet = JSON.parse(event.data);

@@ -26,10 +26,11 @@
 	</nav>
 
 	<div class="row">
-	  <div class="col s12 m12 l6">
+	  <div class="col s12 m12 l8">
 	    <div class="card">
 	      <div class="card-image" style="margin-top: 1.5em;margin-left: 1.5em;margin-right: 2em;">
 	        <canvas id="line" class="chart chart-line" data="data"
+	        	  options="options"
 				  labels="labels" legend="true" series="series"
 				  click="onClick">
 			</canvas> 
@@ -56,17 +57,55 @@
  
 <script>
 	
-angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
+angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope, $http,$interval) {
 
-	  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	  $scope.series = ['Series A', 'Series B'];
-	  $scope.data = [
-	    [65, 59, 80, 81, 56, 55, 40],
-	    [28, 48, 40, 19, 86, 27, 90]
-	  ];
+	  $scope.labels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+	  $scope.series = ['Sentiments'];
+	  $scope.data = [[]];
 	  $scope.onClick = function (points, evt) {
 	    console.log(points, evt);
 	  };
+	  $scope.options = {
+		      animation: false,
+	  };
+	/*   $http.get("tweetList.get")
+	    .success(function(response) {
+	    	var sentiments = [];
+	    	var labels = [];
+	    	var i = 0;
+			response.forEach(function(tweet){
+				sentiments.unshift(tweet.sentiment);
+				i++;
+				labels.push(i);
+			});
+			$scope.data 	= [sentiments];
+			//$scope.labels 	= [labels];
+	    });
+	   */
+	  
+	  if(typeof (EventSource) !== "undefined") {
+			// Yes! Server-sent events support!
+			var source = new EventSource("tweetSteam.get");
+			source.onmessage = function(event) {
+			//	document.getElementById("result").innerHTML += event.data + "<br>";
+				var tweet = JSON.parse(event.data);
+				var array = JSON.parse(JSON.stringify($scope.data[0]));
+				array.unshift(tweet.sentiment);
+				$scope.data = [JSON.parse(JSON.stringify(array))];
+			};
+		} else {
+			// Sorry! No server-sent events support..
+			alert('Sorry there is no server-sent events support for this browser. Use modern browser');
+		}
+	   
+		//Put in interval, first trigger after 10 seconds 
+		$interval(function(){
+			if(!$scope.$$phase) {
+				$scope.$digest();
+			}
+		}.bind(this), 500);   
+		
+		
 	});
      
 	
