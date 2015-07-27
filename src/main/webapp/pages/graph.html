@@ -1,9 +1,9 @@
 <html>
 <head>
 <!--Import materialize.css-->
-<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="css/angular-chart.css" media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../css/materialize.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../css/angular-chart.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../css/style.css" media="screen,projection" />
 <!-- Icon font -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -50,10 +50,10 @@
 	
 <!--Import jQuery before materialize.js-->
 <!-- <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="js/materialize.js"></script> -->
-<script type="text/javascript" src="js/angular.js"></script>
-<script type="text/javascript" src="js/Chart.js"></script>
-<script type="text/javascript" src="js/angular-chart.js"></script>
+<script type="text/javascript" src="../js/materialize.js"></script> -->
+<script type="text/javascript" src="../js/angular.js"></script>
+<script type="text/javascript" src="../js/Chart.js"></script>
+<script type="text/javascript" src="../js/angular-chart.js"></script>
  
 <script>
 	
@@ -85,7 +85,7 @@ angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope, $ht
 	  
 	  if(typeof (EventSource) !== "undefined") {
 			// Yes! Server-sent events support!
-			var source = new EventSource("tweetSteam.get");
+			var source = new EventSource("../tweetSteam.get");
 			source.onmessage = function(event) {
 			//	document.getElementById("result").innerHTML += event.data + "<br>";
 				var tweet = JSON.parse(event.data);
