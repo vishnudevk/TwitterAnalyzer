@@ -1,6 +1,7 @@
 <html>
 <head>
 <!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="../css/font-awesome.css" media="screen,projection" />
 <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
 <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
 <!-- Icon font -->
@@ -30,6 +31,11 @@
 		        <li class="collection-item dismissable">
 		        	<div>Realtime Sentiment graph
 		        		<a href="pages/graph.html" class="secondary-content"><i class="material-icons">input</i></a>
+		        	</div>
+		        </li>
+		        <li class="collection-item dismissable">
+		        	<div>Compare tags
+		        		<a href="pages/compare.html" class="secondary-content"><i class="material-icons">input</i></a>
 		        	</div>
 		        </li>
 		    </ul>
