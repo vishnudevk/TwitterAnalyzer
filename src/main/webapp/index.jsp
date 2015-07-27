@@ -19,14 +19,14 @@
 			<a href="#" class="brand-logo">Twitter analysis</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="#">Number of tweets analyzed for the session: {{tweetSize}}</a></li>
-				<li><a href="#">Sentiment for the session : 0</a></li>
+				<li><a href="#">Sentiment for the session : {{tweetSenti/tweetSize | number : 2}}</a></li>
 			</ul>
 		</div>
 	</nav>
 
     <div class="row card-panel  materialize-red lighten-2 shades-text text-white hide-on-large-only" style="font-size:1.2em;">
 		<div class="col m6 s12"> Number of tweets analyzed : {{tweetSize}} </div>
-		<div class="col m6 s12 right">Sentiment for the session : 0</div>
+		<div class="col m6 s12 right">Sentiment for the session : {{tweetSenti/tweetSize | number : 2}}</div>
     </div>
             
 	<div>
@@ -35,7 +35,11 @@
 			<li ng-repeat="tweet in tweets" ng-animate= ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" class="collection-item avatar">
 				<div class="sentimentMarker {{tweet.colorClass}}"></div>
 				<img src="{{tweet.user.profileImageUrl}}" alt="" class="circle"> 
-				<span class="title">{{tweet.user.name}}</span>
+				<span class="title"><b>{{tweet.user.name}}</b>
+					<div class="circle senti {{tweet.colorClass}}" >
+						{{tweet.sentiment| number : 2}}
+					</div>
+				</span>
 				<p>
 					{{tweet.text}}
 				</p> 
@@ -57,7 +61,7 @@
 	var app = angular.module('myApp', []); 
 	app.controller('tweetsCtrlr', function($scope) {
 	    $scope.tweetSize= 0;
-	    $scope.tweetSenti;
+	    $scope.tweetSenti = 0;
 	    $scope.tweets= [];
 	    
 	    if (typeof (EventSource) !== "undefined") {
@@ -74,7 +78,7 @@
 					colorClass = "redIndicator"
 				}
 				tweet.colorClass = colorClass;
-
+				$scope.tweetSenti += tweet.sentiment;
 				$scope.tweets.unshift(tweet);
 				$scope.tweetSize=$scope.tweets.length;
 				$scope.$apply();

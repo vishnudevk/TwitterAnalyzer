@@ -9,10 +9,11 @@ import com.likethecolor.alchemy.api.call.SentimentCall;
 import com.likethecolor.alchemy.api.call.type.CallTypeText;
 import com.likethecolor.alchemy.api.entity.Response;
 import com.likethecolor.alchemy.api.entity.SentimentAlchemyEntity;
+import com.vish.twitterAnalyst.util.Constants;
 
 public class Alchemist {
 
-	private static final Client client = new Client("b74c40e65fa1aadfd5955abfb9266681efef5923");
+	private static final Client client = new Client(Constants.ALCHEMY_API_KEY);
 
 	public static void main(String[] args) throws IOException {
 

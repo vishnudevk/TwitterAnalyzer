@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.vish.twitterAnalyst.model.Tweet;
 import com.vish.twitterAnalyst.model.User;
+import com.vish.twitterAnalyst.util.Constants;
 
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -30,17 +31,17 @@ public class Analyst {
 		
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true).setOAuthConsumerKey("gtaxZAcibkXOjKmdHPed4aOto")
-				.setOAuthConsumerSecret("QprMHJGu3kZO8LHowjzjwpnzKAtvQNI1y6lE36XcT5gqR0TBI7")
-				.setOAuthAccessToken("74667382-rrJ1QmjAIphMn8Kj9NrhfpfRygWZQ9TF3wn4ZR0H1")
-				.setOAuthAccessTokenSecret("aJPRhNFy4QefYF20EVWD9fb83z6aVBXQngwe26ySdNWqh");
+		cb.setDebugEnabled(true).setOAuthConsumerKey(Constants.TWITTER_CONSUMER_KEY)
+				.setOAuthConsumerSecret(Constants.TWITTER_CONSUMER_SECRET)
+				.setOAuthAccessToken(Constants.TWITTER_ACCESS_TOKEN)
+				.setOAuthAccessTokenSecret(Constants.TWITTER_ACCESS_TOKEN_SCERET);
 		TwitterStreamFactory tf = new TwitterStreamFactory(cb.build());
 
 		StatusListener listener = new StatusListener() {
 			public void onStatus(Status status) {
 				double sentiment = 0;
 				
-				//comment the below try catch to disable fetching of sentiments
+				//TODO: comment the below try catch to disable fetching of sentiments
 				/*try {
 					sentiment = Alchemist.getSentimance(status.getText());
 				} catch (IOException e) {

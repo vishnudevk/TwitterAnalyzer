@@ -30,7 +30,7 @@ public class TweetAnalyzer {
 
 		PrintWriter writer = response.getWriter();
 		
-		int previousSize = 0;
+		int previousSize = tweetList.size()>100 ? tweetList.size()-100 : 0;
 		try {
 			while(true){
 				if(tweetList.size()>previousSize){

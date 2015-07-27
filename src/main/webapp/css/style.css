@@ -10,20 +10,30 @@
     width: 1em;
 }
 
-.sentimentMarker.yellowIndicator{
+/*color indicating the sentiment */
+.yellowIndicator{
 	background-color: #ffee58 ;/*yellow */
 }
-.sentimentMarker.greenIndicator{
+.greenIndicator{
 	background-color: #66BB6A  ;/*green*/
 }
-.sentimentMarker.redIndicator{
+.redIndicator{
 	background-color: #ea454b ;/*red*/ 
 }
 
 /*Pushing the user image to right and allign it properly */
 .circle{
-	left:20px!important;
-	top:7px!important;
+	left:1.5em !important;
+	top:1em !important;
+}
+
+.circle.senti{
+	float: right;
+	padding-top: 0.6em;
+	position: relative !important;
+	text-align: center;	
+	margin-right: 1em;
+	margin-top: -0.5em;
 }
 
 @media only screen and (min-width : 601px) {
