@@ -16,8 +16,15 @@ import com.google.gson.Gson;
 import com.vish.twitterAnalyst.Bo.Analyst;
 import com.vish.twitterAnalyst.model.Tweet;
 
+/**
+ * This controller deals with the live twitter Stream processing
+ * and graphing the live data.
+ * It uses twitter stream API mainly
+ * @author vishnudev
+ *
+ */
 @Controller
-public class TweetAnalyzer {
+public class TweetAnalyzerController {
 
 	private static List<Tweet> tweetList =  new Vector<Tweet>();
 	
