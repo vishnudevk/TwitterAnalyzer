@@ -1,8 +1,5 @@
 package com.vish.twitterAnalyst.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true) 
 public class CompareFormModel {
 
 	private String tag1;

@@ -38,12 +38,13 @@ public class ArchiveAnalizerController {
 	@RequestMapping(value="/testJson.get",consumes="application/json")
 	public @ResponseBody CompareFormModel testJson(@RequestBody CompareFormModel json) throws IOException {
 		System.out.println("comparing tags");
-		CompareFormModel model =null;
+		CompareFormModel model =json;
 		if(model==null){
 			model = new CompareFormModel();
+			model.setTag1("tag1");
+			model.setTag2("tag2");
 		}
-		model.setTag1("tag1");
-		model.setTag2("tag2");
+		
 		return model;
 		
 	}
