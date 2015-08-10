@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="input-field col s5 m5 l3">
 					<i class="fa fa-slack prefix"></i> 
-					<input id="icon_tag1"
+					<input id="icon_tag1" ng-model="formData.tag1"
 						type="text" class="validate"> 
 					<label for="icon_tag1">Tag1</label>
 				</div>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="input-field col s5 m5 l3">
 					<i class="fa fa-slack prefix"></i> 
-					<input id="icon_tag2"
+					<input id="icon_tag2" ng-model="formData.tag2"
 						type="text" class="validate"> 
 					<label for="icon_tag2">Tag2</label>
 				</div>
@@ -45,44 +45,46 @@
 			<div class="row">
 				<div class="input-field col s3 m3 l2">
 					<label for="from_date" style="position: relative;">From Date</label>
-					<input id="from_date" type="date" class="datepicker">
+					<input id="from_date" type="date" ng-model="formData.date1" class="datepicker">
 				</div>
 				<div class="input-field col s2 m2 l1">
 					<label for="from_time" style="position: relative;">Time</label>
-					<input id="from_time" type="time" class="timepicker" value="" data-default="20:48">
+					<input id="from_time" type="time" ng-model="formData.time1" class="timepicker" value="" data-default="20:48">
 				</div>
 				<div class="input-field col s1 m1 l1" style="text-align: center; font-size: 2rem;">
 					<b>To</b>
 				</div>
 				<div class="input-field col s3 m3 l2">
 					<label for="to_date" style="position: relative;">To Date</label>
-					<input id="to_date" type="date" class="datepicker">
+					<input id="to_date" type="date" ng-model="formData.date2" class="datepicker">
 				</div>
 				<div class="input-field col s2 m2 l1">
 					<label for="to_time" style="position: relative;">Time</label>
-					<input id="to_time" type="time" class="timepicker" value="" data-default="20:48">
+					<input id="to_time" type="time" ng-model="formData.time2" class="timepicker" value="" data-default="20:48">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s11">
-					<button class="waves-effect waves-light btn-large"><i class="fa fa-magic right"></i>Research</button>
+					<button class="waves-effect waves-light btn-large"  ng-click="submitForm();"><i class="fa fa-magic right"></i>Research</button>
 				</div>
 			</div>
 		</form>
 	</div>
-
 
 	<!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="../js/materialize.js"></script>
 <script type="text/javascript" src="../js/angular.js"></script>
 <script type="text/javascript" src="../js/jquery-clockpicker.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
  
 <script>
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });
+
+//$('.datepicker').datepicker();
   
 $('.timepicker').clockpicker({
     autoclose: true
@@ -91,7 +93,16 @@ $('.timepicker').clockpicker({
 //angular codes
 var app = angular.module('myApp', []); 
 app.controller('compareCtrlr', function($scope) {
+	
+	$scope.formData = {};
+	
+	$scope.submitForm = function() {
+		this.formData.date1 = document.getElementById('from_date').value;
+		this.formData.date2 = document.getElementById('to_date').value;
+		alert(JSON.stringify(this.formData));
+	}	
 		
+	
 	});
 	
 </script>
