@@ -1,5 +1,6 @@
 package com.vish.twitterAnalyst.controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,7 @@ public class ArchiveAnalizerController {
 	 */
 	
 	@RequestMapping(value="/testJson.get",consumes="application/json")
-	public @ResponseBody CompareFormModel testJson(HttpServletRequest req) throws IOException {
+	public @ResponseBody CompareFormModel testJson(@RequestBody CompareFormModel json) throws IOException {
 		System.out.println("comparing tags");
 		CompareFormModel model =null;
 		if(model==null){
