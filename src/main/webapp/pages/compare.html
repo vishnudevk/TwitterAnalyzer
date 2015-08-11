@@ -45,7 +45,7 @@
 			<div class="row">
 				<div class="input-field col s3 m3 l2">
 					<label for="from_date" style="position: relative;">From Date</label>
-					<input id="from_date" type="date" ng-model="formData.date1" class="datepicker">
+					<input id="from_date" type="text" ng-model="formData.dateFormated1" class="datepicker">
 				</div>
 				<div class="input-field col s2 m2 l1">
 					<label for="from_time" style="position: relative;">Time</label>
@@ -56,7 +56,7 @@
 				</div>
 				<div class="input-field col s3 m3 l2">
 					<label for="to_date" style="position: relative;">To Date</label>
-					<input id="to_date" type="date" ng-model="formData.date2" class="datepicker">
+					<input id="to_date" type="text" ng-model="formData.dateFormated2" class="datepicker">
 				</div>
 				<div class="input-field col s2 m2 l1">
 					<label for="to_time" style="position: relative;">Time</label>
@@ -79,7 +79,7 @@
 <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
  
 <script>
-$('.datepicker').pickadate({
+var test = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });
@@ -92,14 +92,17 @@ $('.timepicker').clockpicker({
   
 //angular codes
 var app = angular.module('myApp', []); 
-app.controller('compareCtrlr', function($scope) {
-	
+app.controller('compareCtrlr', function($scope,$http) {
 	$scope.formData = {};
-	
+
 	$scope.submitForm = function() {
-		this.formData.date1 = document.getElementById('from_date').value;
-		this.formData.date2 = document.getElementById('to_date').value;
-		alert(JSON.stringify(this.formData));
+		
+		$http.post('../tweetCompare.get', this.formData).
+		  then(function(response) {
+		   	alert('got response back');
+		  }, function(response) {
+			  alert('got Error back');
+		  });
 	}	
 		
 	
