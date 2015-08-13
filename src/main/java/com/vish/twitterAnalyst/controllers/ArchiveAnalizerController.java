@@ -1,6 +1,7 @@
 package com.vish.twitterAnalyst.controllers;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,13 @@ import com.vish.twitterAnalyst.model.CompareFormModel;
 public class ArchiveAnalizerController {
 
 	@RequestMapping(value="/tweetCompare.get",consumes="application/json")
-	public @ResponseBody CompareFormModel getTweetComapare(@RequestBody CompareFormModel json) throws IOException {
+	public @ResponseBody CompareFormModel getTweetComapare(@RequestBody CompareFormModel json) {
 		System.out.println("comparing tags");
+		try {
+			json.parseDates();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
