@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class CompareFormModel {
 
@@ -65,6 +66,16 @@ public class CompareFormModel {
 	
 	
 	public void parseDates() throws ParseException{
+			if(time1==null || time1.isEmpty()){
+				//time with hr and minuts 00:00 
+				//TODO this will only work with indian timezone
+				time1 = "1969-12-31T18:30:00.000Z";
+			}
+			if(time2==null || time2.isEmpty()){
+				//time with hr and minuts 23:59
+				//TODO this will only work with indian timezone
+				time2 = "1970-01-01T18:29:00.000Z";
+			}
 			date1 = getConvertedDate(dateFormated1, time1);
 			date2 = getConvertedDate(dateFormated2, time2);
 		}
