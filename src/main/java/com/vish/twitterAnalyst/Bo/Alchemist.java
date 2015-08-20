@@ -14,6 +14,8 @@ import com.vish.twitterAnalyst.util.Constants;
 public class Alchemist {
 
 	private static final Client client = new Client(Constants.ALCHEMY_API_KEY);
+	private static final String MODE = "TEST";//in TEST mode alchemist will return random numbers as sentiment 
+	//Use "PROD" mode to get actual sentimenses otherwise it will exhaust the alchemy key
 
 	public static void main(String[] args) throws IOException {
 
@@ -41,22 +43,27 @@ public class Alchemist {
 		 * sentimentResponse.getUsage()); System.out.println("URL: " +
 		 * sentimentResponse.getURL());
 		 */
-
 	}
 
 	public static synchronized double getSentimance(String tweet) throws IOException {
-		final AbstractCall<SentimentAlchemyEntity> sentimentCall = new SentimentCall(
-				new CallTypeText(tweet));
-
-		final Response<SentimentAlchemyEntity> sentimentResponse = client.call(sentimentCall);
-
-		sentimentResponse.toString();
-
-		double sentimentScore = 0d;
-		Iterator<SentimentAlchemyEntity> itr = sentimentResponse.iterator();
-		while (itr.hasNext()) {
-			SentimentAlchemyEntity entity = itr.next();
-			sentimentScore += entity.getScore();
+		
+		double sentimentScore = 0d;		
+		
+		if("TEST".equals(MODE)){
+			sentimentScore = 1-(Math.random()*2);
+		}else{
+			final AbstractCall<SentimentAlchemyEntity> sentimentCall = new SentimentCall(
+					new CallTypeText(tweet));
+	
+			final Response<SentimentAlchemyEntity> sentimentResponse = client.call(sentimentCall);
+	
+			sentimentResponse.toString();
+	
+			Iterator<SentimentAlchemyEntity> itr = sentimentResponse.iterator();
+			while (itr.hasNext()) {
+				SentimentAlchemyEntity entity = itr.next();
+				sentimentScore += entity.getScore();
+			}
 		}
 		return sentimentScore;
 	}

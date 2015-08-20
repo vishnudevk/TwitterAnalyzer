@@ -42,18 +42,12 @@ public class Analyst {
 				double sentiment = 0;
 				
 				//TODO: comment the below try catch to disable fetching of sentiments
-				/*try {
+				try {
 					sentiment = Alchemist.getSentimance(status.getText());
 				} catch (IOException e) {
 					e.printStackTrace();
-				}*/
-				
-				//for the time being show random sentiments -1 to 1
-				//should be commented out
-				if(sentiment==0){
-					sentiment = 1-(Math.random()*2);
 				}
-				
+
 				//	tweets.add(status);
 				Tweet tweet = new Tweet();
 				User user = new User();
