@@ -32,6 +32,7 @@ public class ArchiveAnalyst {
 		CompareFormModel model = new CompareFormModel();
 		model.setTag1("Sprint");
 		model.setTag2("verizon");
+		model.setCount(5);
 		analyzeTags(model);
 	}
 	
@@ -47,8 +48,8 @@ public class ArchiveAnalyst {
 		//Authorization auth = new OAuthAuthorization(cb.build());
 		Twitter twitter = tf.getInstance();
 		
-	    Query query = new Query();
-	    query.count(100);
+	    Query query = new Query(model.getTag1());
+	    query.count(model.getCount());
 	    QueryResult result = twitter.search(query);
 	    for (Status status : result.getTweets()) {
 	        System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
