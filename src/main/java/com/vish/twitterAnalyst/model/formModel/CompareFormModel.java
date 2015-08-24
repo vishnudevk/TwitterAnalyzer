@@ -1,4 +1,4 @@
-package com.vish.twitterAnalyst.model;
+package com.vish.twitterAnalyst.model.formModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

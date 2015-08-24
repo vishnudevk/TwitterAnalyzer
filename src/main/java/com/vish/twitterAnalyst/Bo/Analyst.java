@@ -7,6 +7,7 @@ import java.util.Vector;
 import com.vish.twitterAnalyst.model.Tweet;
 import com.vish.twitterAnalyst.model.User;
 import com.vish.twitterAnalyst.util.Constants;
+import com.vish.twitterAnalyst.util.TweetUtils;
 
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -49,19 +50,8 @@ public class Analyst {
 				}
 
 				//	tweets.add(status);
-				Tweet tweet = new Tweet();
-				User user = new User();
-				
-				user.setName(status.getUser().getName());
-				user.setScreenName(status.getUser().getScreenName());
-				user.setProfileImageUrl(status.getUser().getProfileImageURL());
-				
-				tweet.setId(status.getId());
-				tweet.setUser(user);
-				tweet.setText(status.getText());
+				Tweet tweet = TweetUtils.parseTweet(status);
 				tweet.setSentiment(sentiment);
-				tweet.setCreatedAt(status.getCreatedAt());
-				
 				tweets.add(tweet);
 				
 				/*System.out.println( "Sentiment :"+ sentiment +" : "+ status.getUser().getName() + " : " + status.getText());

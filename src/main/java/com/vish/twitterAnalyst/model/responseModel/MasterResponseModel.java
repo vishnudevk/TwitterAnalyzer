@@ -1,4 +1,4 @@
-package com.vish.twitterAnalyst.model;
+package com.vish.twitterAnalyst.model.responseModel;
 
 /**This is a master class for responses objects from server
  * it have the possible general fields like error message 

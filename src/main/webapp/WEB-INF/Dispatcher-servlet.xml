@@ -8,6 +8,8 @@
    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan base-package="com.vish.twitterAnalyst.controllers" />
+	<context:component-scan base-package="com.vish.twitterAnalyst.Bo" />
+	
 	<context:annotation-config />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

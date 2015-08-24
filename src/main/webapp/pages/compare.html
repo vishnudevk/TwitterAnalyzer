@@ -105,7 +105,7 @@ app.controller('compareCtrlr', function($scope,$http) {
 	$scope.submitForm = function() {
 		$http.post('../tweetCompare.get', this.formData).
 		  then(function(response) {
-		   	alert('got response back');
+		   	alert(response);
 		  }, function(response) {
 			  alert('got Error back');
 		  });
