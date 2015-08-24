@@ -21,6 +21,8 @@ public class CompareFormModel {
 	private Date date1 ;
 	private Date date2 ;
 	
+	private int count;
+	
 	//date format coming from the calendar picker
 	private static String dateFmt = "dd MMMM, yyyy";
 	//time format coming from the clock picker
@@ -63,7 +65,13 @@ public class CompareFormModel {
 	public void setTime2(String time2) {
 		this.time2 = time2;
 	}
-	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	
 	public void parseDates() throws ParseException{
 			if(time1==null || time1.isEmpty()){

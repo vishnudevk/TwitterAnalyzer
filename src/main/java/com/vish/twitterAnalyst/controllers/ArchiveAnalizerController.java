@@ -23,11 +23,12 @@ public class ArchiveAnalizerController {
 	@RequestMapping(value="/tweetCompare.get",consumes="application/json")
 	public @ResponseBody CompareFormModel getTweetComapare(@RequestBody CompareFormModel json) {
 		System.out.println("comparing tags");
-		try {
+		//we are commenting the below code becasuse there is no search within date period
+		/*try {
 			json.parseDates();
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return null;
 	}
 	
