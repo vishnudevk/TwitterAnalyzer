@@ -8,7 +8,15 @@
 <link type="text/css" rel="stylesheet" href="../css/jquery-clockpicker.css" media="screen,projection" />
 <!-- Icon font -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<style type="text/css">
+	.comparison{
+		text-align: center;
+	}
+	.lighten-3{
+		color: white;
+		text-align: left;
+	}
+</style>
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +32,7 @@
 	</nav>
 
 	<div class="row">
-		<form class="col s12" ng-submit ="submitForm();">
+		<form class="col s12" ng-submit ="submitForm();"   ng-hide="showResult">
 			<div class="row">
 				<div class="input-field col s5 m5 l3">
 					<i class="fa fa-slack prefix"></i> 
@@ -76,6 +84,24 @@
 				</div>
 			</div>
 		</form>
+		<div class="comparison" ng-show="showResult">
+			<div class="divider"></div>
+			<div class="section col s12 materialize-red lighten-3 ">
+				<h5>Number of tweets</h5>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">5</p>
+			</div>
+			<div class="col s4  materialize-red lighten-5">
+				<div style="width: 20em;margin: auto;">
+					<canvas id="pie" class="chart chart-pie" data="data" labels="labels"></canvas>
+				</div>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">5</p>
+			</div>
+			<div class="divider"></div>
+		</div>
 	</div>
 
 	<!--Import jQuery before materialize.js-->
@@ -83,7 +109,8 @@
 <script type="text/javascript" src="../js/materialize.js"></script>
 <script type="text/javascript" src="../js/angular.js"></script>
 <script type="text/javascript" src="../js/jquery-clockpicker.js"></script>
-<!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+<script type="text/javascript" src="../js/Chart.js"></script>
+<script type="text/javascript" src="../js/angular-chart.js"></script>
  
 <script>
 var test = $('.datepicker').pickadate({
@@ -98,19 +125,31 @@ $('.timepicker').clockpicker({
 });
   
 //angular codes
-var app = angular.module('myApp', []); 
+var app = angular.module('myApp',  ["chart.js"]); 
 app.controller('compareCtrlr', function($scope,$http) {
 	$scope.formData = {};
-	$scope.formData.count = 100;
+	$scope.formData.tag1 = "#sprint"
+	$scope.formData.tag2 = "#verizon"
+	$scope.formData.count = 10;
+	$scope.showResult = true;
+	$scope.response ;
+	
 	$scope.submitForm = function() {
 		$http.post('../tweetCompare.get', this.formData).
 		  then(function(response) {
-		   	alert(response);
+			$scope.response = response;
+		   	$scope.showResult = true;
 		  }, function(response) {
 			  alert('got Error back');
 		  });
 	}	
 		
+	
+	//variables for tweet count piechart
+	$scope.labels = [$scope.formData.tag2, $scope.formData.tag1];
+	$scope.data = [5,5];
+	
+	
 	
 	});
 	
