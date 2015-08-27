@@ -85,22 +85,57 @@
 			</div>
 		</form>
 		<div class="comparison" ng-show="showResult">
+			<!-- For showing total number of tweets -->
 			<div class="divider"></div>
 			<div class="section col s12 materialize-red lighten-3 ">
 				<h5>Number of tweets</h5>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">5</p>
+				<p style="position: relative; top:50">{{response.data.tweetsForTag1.length}}</p>
 			</div>
 			<div class="col s4  materialize-red lighten-5">
 				<div style="width: 20em;margin: auto;">
-					<canvas id="pie" class="chart chart-pie" data="data" labels="labels"></canvas>
+					<canvas id="pie" class="chart chart-pie" data="countdata" labels="labels"></canvas>
 				</div>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">5</p>
+				<p style="position: relative; top:50">{{response.data.tweetsForTag2.length}}</p>
 			</div>
 			<div class="divider"></div>
+			
+			<!--Average sentiment -->
+			<div class="divider"></div>
+			<div class="section col s12 materialize-red lighten-3 ">
+				<h5>Average sentiment</h5>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{averagedata[1]}}</p>
+			</div>
+			<div class="col s4  materialize-red lighten-5">
+				<div style="width: 20em;margin: auto;">
+					<canvas id="pie" class="chart chart-pie" data=averagedata labels="labels"></canvas>
+				</div>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{averagedata[0]}}</p>
+			</div>
+			
+			<!--Top sentiment -->
+			<div class="divider"></div>
+			<div class="section col s12 materialize-red lighten-3 ">
+				<h5>Top sentiment</h5>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{maxdata[1]}}</p>
+			</div>
+			<div class="col s4  materialize-red lighten-5">
+				<div style="width: 20em;margin: auto;">
+					<canvas id="pie" class="chart chart-pie" data="maxdata" labels="labels"></canvas>
+				</div>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{maxdata[0]}}</p>
+			</div>
 		</div>
 	</div>
 
@@ -131,26 +166,56 @@ app.controller('compareCtrlr', function($scope,$http) {
 	$scope.formData.tag1 = "#sprint"
 	$scope.formData.tag2 = "#verizon"
 	$scope.formData.count = 10;
-	$scope.showResult = true;
+	$scope.showResult = false;
 	$scope.response ;
 	
+	$scope.labels = ["Tag2", "Tag1"];
+	$scope.countdata = [1,0];
+	$scope.averagedata = [1,0];
+	$scope.maxdata = [1,0];
+	
+	
 	$scope.submitForm = function() {
+		
+		//variables for tweet count piechart
+		
+		
+		
 		$http.post('../tweetCompare.get', this.formData).
 		  then(function(response) {
 			$scope.response = response;
 		   	$scope.showResult = true;
+		   	
+			$scope.countdata = [$scope.response.data.tweetsForTag2.length,$scope.response.data.tweetsForTag1.length];
+			$scope.averagedata = [getAverageRating($scope.response.data.tweetsForTag2),getAverageRating($scope.response.data.tweetsForTag1)];
+			$scope.maxdata = [getMaxRating($scope.response.data.tweetsForTag2),getMaxRating($scope.response.data.tweetsForTag1)];
+			
 		  }, function(response) {
 			  alert('got Error back');
 		  });
-	}	
+	}
+	
+	function getAverageRating(array){
+		  var sum=0;
+		    for (var i = 0; i < array.length; i++) {
+		           sum = sum + array[i].sentiment;
+		           
+		    }
+		    if(array.length===0){
+		    	return sum;
+		    }
+		  return sum/array.length;
+	}
+	
+	function getMaxRating(array){
+		  var max;
+		    for (var i = 0; i < array.length; i++) {
+		        if (array[i].sentiment > (max || 0))
+		            max = array[i].sentiment;
+		    }
+		  return max;
+	}
 		
-	
-	//variables for tweet count piechart
-	$scope.labels = [$scope.formData.tag2, $scope.formData.tag1];
-	$scope.data = [5,5];
-	
-	
-	
 	});
 	
 </script>
