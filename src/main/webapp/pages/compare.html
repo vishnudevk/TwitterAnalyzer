@@ -31,7 +31,7 @@
 		</div>
 	</nav>
 
-	<div class="row">
+	<div class="row" style="margin-top: 1em">
 		<form class="col s12" ng-submit ="submitForm();"   ng-hide="showResult">
 			<div class="row">
 				<div class="input-field col s5 m5 l3">
@@ -109,7 +109,7 @@
 				<h5>Average sentiment</h5>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">{{averagedata[1]}}</p>
+				<p style="position: relative; top:50">{{averagedata[1] | number : 2}}</p>
 			</div>
 			<div class="col s4  materialize-red lighten-5">
 				<div style="width: 20em;margin: auto;">
@@ -117,7 +117,7 @@
 				</div>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">{{averagedata[0]}}</p>
+				<p style="position: relative; top:50">{{averagedata[0] | number : 2}}</p>
 			</div>
 			
 			<!--Top sentiment -->
@@ -126,7 +126,7 @@
 				<h5>Top sentiment</h5>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">{{maxdata[1]}}</p>
+				<p style="position: relative; top:50">{{maxdata[1] | number : 2}}</p>
 			</div>
 			<div class="col s4  materialize-red lighten-5">
 				<div style="width: 20em;margin: auto;">
@@ -134,7 +134,24 @@
 				</div>
 			</div>
 			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
-				<p style="position: relative; top:50">{{maxdata[0]}}</p>
+				<p style="position: relative; top:50">{{maxdata[0] | number : 2}}</p>
+			</div>
+			
+			<!--Worst sentiment -->
+			<div class="divider"></div>
+			<div class="section col s12 materialize-red lighten-3 ">
+				<h5>Worst sentiment</h5>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{mindata[1] | number : 2}}</p>
+			</div>
+			<div class="col s4  materialize-red lighten-5">
+				<div style="width: 20em;margin: auto;">
+					<canvas id="pie" class="chart chart-pie" data="mindata" labels="labels"></canvas>
+				</div>
+			</div>
+			<div class="section col s4 materialize-red lighten-5" style="height: 10em;">
+				<p style="position: relative; top:50">{{mindata[0] | number : 2}}</p>
 			</div>
 		</div>
 	</div>
@@ -173,6 +190,7 @@ app.controller('compareCtrlr', function($scope,$http) {
 	$scope.countdata = [1,0];
 	$scope.averagedata = [1,0];
 	$scope.maxdata = [1,0];
+	$scope.mindata = [1,0];
 	
 	
 	$scope.submitForm = function() {
@@ -189,6 +207,7 @@ app.controller('compareCtrlr', function($scope,$http) {
 			$scope.countdata = [$scope.response.data.tweetsForTag2.length,$scope.response.data.tweetsForTag1.length];
 			$scope.averagedata = [getAverageRating($scope.response.data.tweetsForTag2),getAverageRating($scope.response.data.tweetsForTag1)];
 			$scope.maxdata = [getMaxRating($scope.response.data.tweetsForTag2),getMaxRating($scope.response.data.tweetsForTag1)];
+			$scope.mindata = [getMinRating($scope.response.data.tweetsForTag2),getMinRating($scope.response.data.tweetsForTag1)];
 			
 		  }, function(response) {
 			  alert('got Error back');
@@ -214,6 +233,15 @@ app.controller('compareCtrlr', function($scope,$http) {
 		            max = array[i].sentiment;
 		    }
 		  return max;
+	}
+	
+	function getMinRating(array){
+		  var min;
+		    for (var i = 0; i < array.length; i++) {
+		        if (array[i].sentiment < (min || 0))
+		            min = array[i].sentiment;
+		    }
+		  return min;
 	}
 		
 	});
