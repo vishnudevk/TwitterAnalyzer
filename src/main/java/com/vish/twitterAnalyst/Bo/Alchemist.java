@@ -14,7 +14,7 @@ import com.vish.twitterAnalyst.util.Constants;
 public class Alchemist {
 
 	private static final Client client = new Client(Constants.ALCHEMY_API_KEY);
-	private static final boolean DEBUGMODE = true;//in TEST mode alchemist will return random numbers as sentiment 
+	private static final boolean DEBUGMODE = false;//in TEST mode alchemist will return random numbers as sentiment 
 	//Use "PROD" mode to get actual sentimenses otherwise it will exhaust the alchemy key
 
 	public static void main(String[] args) throws IOException {

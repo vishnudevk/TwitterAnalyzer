@@ -41,7 +41,7 @@ public class Analyst {
 		StatusListener listener = new StatusListener() {
 			public void onStatus(Status status) {
 				double sentiment = 0;
-				
+				//sentiment = (Math.random()*2)-1;
 				//TODO: comment the below try catch to disable fetching of sentiments
 				try {
 					sentiment = Alchemist.getSentimance(status.getText());
@@ -54,8 +54,8 @@ public class Analyst {
 				tweet.setSentiment(sentiment);
 				tweets.add(tweet);
 				
-				/*System.out.println( "Sentiment :"+ sentiment +" : "+ status.getUser().getName() + " : " + status.getText());
-				if(status.getGeoLocation()!=null){
+				System.out.println( "Sentiment :"+ sentiment +" : "+ status.getUser().getName() + " : " + status.getText());
+				/*if(status.getGeoLocation()!=null){
 					System.out.println("We have location from tweet itself");
 				}else{
 					System.out.println(status.getUser().getLocation());
@@ -86,7 +86,7 @@ public class Analyst {
 		// sample() method internally creates a thread which manipulates
 		// TwitterStream and calls these adequate listener methods continuously.
 		FilterQuery qry = new  FilterQuery();
-		String[] qryFor = {"IBM"};//{"@sprint","@sprintcare","@sprintnews"};
+		String[] qryFor = {"@vishkart"};//{"@google","@android","@chrome"};
 		String[] qryLanguage = {"en"};
 		qry.language(qryLanguage);
 		qry.track(qryFor);

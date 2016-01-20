@@ -42,7 +42,7 @@ public class TweetAnalyzerController {
 			while(true){
 				if(tweetList.size()>previousSize){
 					for(int i = previousSize;i<tweetList.size();i++){
-						writer.write("data: " + tweetList.get(i) + "\n\n");
+						writer.write("data:  " + tweetList.get(i) +" "+ "\n\n");
 						writer.flush();
 					}
 					previousSize = tweetList.size();
